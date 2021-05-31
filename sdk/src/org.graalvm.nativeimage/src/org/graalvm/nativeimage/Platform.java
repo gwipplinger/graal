@@ -130,6 +130,19 @@ public interface Platform {
     }
 
     /**
+     * Supported architecture: i386 32-bit.
+     */
+    interface I386 extends Platform {
+
+        /**
+         * Returns string representing I386 architecture.
+         */
+        default String getArchitecture() {
+            return "i386";
+        }
+    }
+
+    /**
      * Supported architecture: ARMv8 64-bit.
      *
      * @since 19.0
@@ -250,6 +263,19 @@ public interface Platform {
          * @since 19.0
          */
         public LINUX_AMD64() {
+        }
+
+    }
+
+    /**
+     * Supported leaf platform: Linux on x86 32-bit.
+     */
+    class LINUX_I386 implements LINUX, I386 {
+
+        /**
+         * Instantiates a marker instance of this platform.
+         */
+        public LINUX_I386() {
         }
 
     }

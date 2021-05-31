@@ -1,4 +1,5 @@
 org.graalvm.nativeimage.Platform$LINUX_AMD64
+org.graalvm.nativeimage.Platform$LINUX_I386
 org.graalvm.nativeimage.Platform$LINUX_AARCH64
 org.graalvm.nativeimage.Platform$ANDROID_AARCH64
 org.graalvm.nativeimage.Platform$DARWIN_AMD64
