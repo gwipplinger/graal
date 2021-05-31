@@ -903,7 +903,7 @@ def _native_image_launcher_extra_jvm_args():
     res = []
     jdk = mx.get_jdk(tag='default')
     if not mx_sdk_vm.jdk_enables_jvmci_by_default(jdk):
-        res.extend(['-XX:+UnlockExperimentalVMOptions', '-XX:+EnableJVMCI'])
+        res.extend(['-XX:+UnlockExperimentalVMOptions', '-XX:+EnableJVMCI', '-XX:-UseJVMCICompiler'])
     return res
 
 
