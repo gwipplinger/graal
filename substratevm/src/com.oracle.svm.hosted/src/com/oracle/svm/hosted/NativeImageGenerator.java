@@ -167,6 +167,7 @@ import com.oracle.svm.core.SubstrateTargetDescription;
 import com.oracle.svm.core.SubstrateUtil;
 import com.oracle.svm.core.aarch64.AArch64CPUFeatureAccess;
 import com.oracle.svm.core.amd64.AMD64CPUFeatureAccess;
+import com.oracle.svm.core.i386.I386CPUFeatureAccess;
 import com.oracle.svm.core.c.function.CEntryPointOptions;
 import com.oracle.svm.core.c.libc.LibCBase;
 import com.oracle.svm.core.c.libc.NoLibC;
@@ -282,6 +283,7 @@ import com.oracle.svm.util.ReflectionUtil.ReflectionUtilError;
 
 import jdk.vm.ci.aarch64.AArch64;
 import jdk.vm.ci.amd64.AMD64;
+import jdk.vm.ci.i386.I386;
 import jdk.vm.ci.code.Architecture;
 import jdk.vm.ci.code.CodeCacheProvider;
 import jdk.vm.ci.code.TargetDescription;
@@ -422,6 +424,23 @@ public class NativeImageGenerator {
                 architecture = new AMD64(features, AMD64CPUFeatureAccess.allAMD64Flags());
             }
             assert architecture instanceof AMD64 : "using AMD64 platform with a different architecture";
+            int deoptScratchSpace = 2 * 8; // Space for two 64-bit registers: rax and xmm0
+            return new SubstrateTargetDescription(architecture, true, 16, 0, deoptScratchSpace);
+	} else if (includedIn(platform, Platform.I386.class)) {
+            Architecture architecture;
+            if (NativeImageOptions.NativeArchitecture.getValue()) {
+                architecture = GraalAccess.getOriginalTarget().arch;
+            } else {
+                EnumSet<I386.CPUFeature> features = EnumSet.noneOf(I386.CPUFeature.class);
+                // SSE and SSE2 are added by defaults as they are required by Graal
+                features.add(I386.CPUFeature.SSE);
+                features.add(I386.CPUFeature.SSE2);
+
+                features.addAll(parseCSVtoEnum(I386.CPUFeature.class, NativeImageOptions.CPUFeatures.getValue().values(), I386.CPUFeature.values()));
+
+                architecture = new I386(features, I386CPUFeatureAccess.allI386Flags());
+            }
+            assert architecture instanceof I386 : "using I386 platform with a different architecture";
             int deoptScratchSpace = 2 * 8; // Space for two 64-bit registers: rax and xmm0
             return new SubstrateTargetDescription(architecture, true, 16, 0, deoptScratchSpace);
         } else if (includedIn(platform, Platform.AARCH64.class)) {
