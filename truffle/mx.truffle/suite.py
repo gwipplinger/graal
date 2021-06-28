@@ -622,6 +622,10 @@ suite = {
           },
         },
         "linux" : {
+          "i386" : {
+            "cflags" : ["-g", "-Wall", "-Werror", "-D_GNU_SOURCE", "-m32"],
+            "ldlibs" : ["-ldl"],
+          },
           "<others>" : {
             "cflags" : ["-g", "-Wall", "-Werror", "-D_GNU_SOURCE"],
             "ldlibs" : ["-ldl"],
@@ -674,6 +678,18 @@ suite = {
           "<others>" : {
             "cflags" : ["-g", "-Wall", "-Werror", "-m64"],
             "ldflags" : ["-m64", "-pthread"],
+            "ldlibs" : ["-lm"],
+          },
+        },
+        "linux" : {
+          "i386" : {
+            "cflags" : ["-g", "-Wall", "-Werror", "-m32"],
+            "ldflags" : ["-pthread"],
+            "ldlibs" : ["-lm"],
+          },
+          "<others>" : {
+            "cflags" : ["-g", "-Wall", "-Werror"],
+            "ldflags" : ["-pthread"],
             "ldlibs" : ["-lm"],
           },
         },
@@ -938,6 +954,7 @@ suite = {
       "platforms" : [
           "linux-amd64",
           "linux-aarch64",
+          "linux-i386",
           "darwin-amd64",
       ],
       "layout" : {

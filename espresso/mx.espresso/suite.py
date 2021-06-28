@@ -158,6 +158,14 @@ suite = {
                         "cflags": ["-Wall"],
                     },
                 },
+                "linux": {
+                    "i386": {
+                        "cflags": ["-Wall", "-Werror", "-m32"],
+                    },
+                    "<others>": {
+                        "cflags": ["-Wall", "-Werror"],
+                    },
+                },
                 "<others>": {
                     "<others>": {
                         "cflags": ["-Wall", "-Werror"],
@@ -175,6 +183,13 @@ suite = {
             "platformDependent": True,
             "os_arch": {
                 "linux": {
+                    "i386": {
+                        "cflags" : ["-g", "-fPIC", "-Wall", "-Werror", "-D_GNU_SOURCE", "-m32"],
+                        "ldflags": [
+                            "-Wl,-soname,libeden.so",
+                        ],
+                        "ldlibs" : ["-ldl"],
+                    },
                     "<others>": {
                         "cflags" : ["-g", "-fPIC", "-Wall", "-Werror", "-D_GNU_SOURCE"],
                         "ldflags": [
@@ -215,6 +230,13 @@ suite = {
                     },
                 },
                 "linux": {
+                    "i386": {
+                        "cflags": ["-Wall", "-Werror", "-g", "-std=c11", "-D_GNU_SOURCE", "-m32"],
+                        "ldflags": [
+                            "-Wl,-soname,libjvm.so",
+                            "-Wl,--version-script,<path:espresso:com.oracle.truffle.espresso.mokapot>/mapfile-vers",
+                        ],
+                    },
                     "<others>": {
                         "cflags": ["-Wall", "-Werror", "-g", "-std=c11", "-D_GNU_SOURCE"],
                         "ldflags": [
