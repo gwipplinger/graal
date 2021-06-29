@@ -1103,6 +1103,22 @@ suite = {
       "workingSets" : "Graal,Replacements,AMD64",
     },
 
+    "org.graalvm.compiler.replacements.i386" : {
+      "subDir" : "src",
+      "sourceDirs" : ["src"],
+      "dependencies" : [
+        "org.graalvm.compiler.replacements",
+        "org.graalvm.compiler.lir.amd64",
+      ],
+      "checkstyle" : "org.graalvm.compiler.graph",
+      "javaCompliance" : "8+",
+      "annotationProcessors" : [
+        "GRAAL_PROCESSOR",
+      ],
+      "workingSets" : "Graal,Replacements,AMD64",
+    },
+
+
     "org.graalvm.compiler.replacements.test" : {
       "subDir" : "src",
       "sourceDirs" : ["src"],
@@ -1414,7 +1430,7 @@ suite = {
       "subDir" : "src",
       "sourceDirs" : ["src"],
       "dependencies" : [
-        "org.graalvm.compiler.replacements.amd64",
+        "org.graalvm.compiler.replacements.i386",
         "org.graalvm.compiler.core",
       ],
       "checkstyle" : "org.graalvm.compiler.graph",
@@ -2209,6 +2225,7 @@ suite = {
         "org.graalvm.compiler.core.amd64",
         "org.graalvm.compiler.core.i386",
         "org.graalvm.compiler.replacements.amd64",
+        "org.graalvm.compiler.replacements.i386",
         "org.graalvm.compiler.hotspot.aarch64",
         "org.graalvm.compiler.hotspot.amd64",
         "org.graalvm.compiler.hotspot.i386",

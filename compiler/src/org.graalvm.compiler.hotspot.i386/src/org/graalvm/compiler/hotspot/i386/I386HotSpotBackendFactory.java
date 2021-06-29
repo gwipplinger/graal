@@ -31,7 +31,7 @@ import org.graalvm.compiler.hotspot.GraalHotSpotVMConfig;
 import org.graalvm.compiler.hotspot.HotSpotBackendFactory;
 import org.graalvm.compiler.hotspot.HotSpotGraalRuntimeProvider;
 import org.graalvm.compiler.hotspot.HotSpotReplacementsImpl;
-//! import org.graalvm.compiler.hotspot.meta.AddressLoweringHotSpotSuitesProvider;
+import org.graalvm.compiler.hotspot.meta.AddressLoweringHotSpotSuitesProvider;
 import org.graalvm.compiler.hotspot.meta.HotSpotGraphBuilderPlugins;
 import org.graalvm.compiler.hotspot.meta.HotSpotHostForeignCallsProvider;
 import org.graalvm.compiler.hotspot.meta.HotSpotLoweringProvider;
@@ -45,9 +45,10 @@ import org.graalvm.compiler.hotspot.meta.HotSpotSuitesProvider;
 import org.graalvm.compiler.hotspot.word.HotSpotWordTypes;
 import org.graalvm.compiler.nodes.graphbuilderconf.GraphBuilderConfiguration.Plugins;
 import org.graalvm.compiler.options.OptionValues;
-//! import org.graalvm.compiler.phases.common.AddressLoweringPhase;
+import org.graalvm.compiler.phases.common.AddressLoweringPhase;
 import org.graalvm.compiler.phases.tiers.CompilerConfiguration;
 //! import org.graalvm.compiler.replacements.amd64.AMD64GraphBuilderPlugins;
+import org.graalvm.compiler.replacements.i386.I386GraphBuilderPlugins;
 import org.graalvm.compiler.serviceprovider.ServiceProvider;
 
 import jdk.vm.ci.i386.I386;
@@ -90,7 +91,7 @@ public class I386HotSpotBackendFactory extends HotSpotBackendFactory {
                         replacements,
                         options,
                         target);
-//!        AMD64GraphBuilderPlugins.register(plugins, replacements, (AMD64) target.arch, config.useFMAIntrinsics, options);
+        I386GraphBuilderPlugins.register(plugins, replacements, (I386) target.arch, config.useFMAIntrinsics, options);
         return plugins;
     }
 
@@ -117,9 +118,8 @@ public class I386HotSpotBackendFactory extends HotSpotBackendFactory {
     @Override
     protected HotSpotSuitesProvider createSuites(GraalHotSpotVMConfig config, HotSpotGraalRuntimeProvider runtime, CompilerConfiguration compilerConfiguration, Plugins plugins,
                     HotSpotRegistersProvider registers, HotSpotReplacementsImpl replacements, OptionValues options) {
-//!        return new AddressLoweringHotSpotSuitesProvider(new AMD64HotSpotSuitesCreator(compilerConfiguration, plugins), config, runtime,
-//!                        new AddressLoweringPhase(new AMD64HotSpotAddressLowering(config, registers.getHeapBaseRegister(), options)));
-        return null;
+        return new AddressLoweringHotSpotSuitesProvider(new I386HotSpotSuitesCreator(compilerConfiguration, plugins), config, runtime,
+                        new AddressLoweringPhase(new I386HotSpotAddressLowering(config, registers.getHeapBaseRegister(), options)));
     }
 
     @Override
