@@ -71,8 +71,8 @@ public final class PosixVMThreads extends VMThreads {
     @Override
     public void nativeSleep(int milliseconds) {
         timespec ts = StackValue.get(timespec.class);
-        ts.set_tv_sec(milliseconds / TimeUtils.millisPerSecond);
-        ts.set_tv_nsec((milliseconds % TimeUtils.millisPerSecond) * TimeUtils.nanosPerMilli);
+        ts.set_tv_sec((int) (milliseconds / TimeUtils.millisPerSecond));
+        ts.set_tv_nsec((int) ((milliseconds % TimeUtils.millisPerSecond) * TimeUtils.nanosPerMilli));
         Time.NoTransitions.nanosleep(ts, WordFactory.nullPointer());
     }
 

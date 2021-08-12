@@ -84,7 +84,7 @@ public class PthreadConditionUtils {
             Time.timeval tv = StackValue.get(Time.timeval.class);
             Time.NoTransitions.gettimeofday(tv, WordFactory.nullPointer());
             result.set_tv_sec(tv.tv_sec());
-            result.set_tv_nsec(TimeUtils.microsToNanos(tv.tv_usec()));
+            result.set_tv_nsec((int) TimeUtils.microsToNanos(tv.tv_usec()));
         }
     }
 
@@ -103,8 +103,8 @@ public class PthreadConditionUtils {
         }
         assert nsec < TimeUtils.nanosPerSecond;
 
-        result.set_tv_sec(sec);
-        result.set_tv_nsec(nsec);
+        result.set_tv_sec((int) sec);
+        result.set_tv_nsec((int) nsec);
     }
 
     @Uninterruptible(reason = "Called from uninterruptible code.")

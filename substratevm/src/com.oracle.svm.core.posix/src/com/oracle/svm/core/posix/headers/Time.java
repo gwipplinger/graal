@@ -44,18 +44,18 @@ public class Time {
     @CStruct(addStructKeyword = true)
     public interface timeval extends PointerBase {
         @CField
-        long tv_sec();
+        int tv_sec();
 
         @CField
-        void set_tv_sec(long value);
+        void set_tv_sec(int value);
 
         @CField
         @AllowWideningCast
-        long tv_usec();
+        int tv_usec();
 
         @CField
         @AllowNarrowingCast
-        void set_tv_usec(long value);
+        void set_tv_usec(int value);
 
         timeval addressOf(int index);
     }
@@ -66,16 +66,16 @@ public class Time {
     @CStruct(addStructKeyword = true)
     public interface timespec extends PointerBase {
         @CField
-        long tv_sec();
+        int tv_sec();
 
         @CField
-        void set_tv_sec(long value);
+        void set_tv_sec(int value);
 
         @CField
-        long tv_nsec();
+        int tv_nsec();
 
         @CField
-        void set_tv_nsec(long value);
+        void set_tv_nsec(int value);
     }
 
     public static class NoTransitions {

@@ -42,30 +42,30 @@ public class Times {
     public interface tms extends PointerBase {
 
         @CField
-        long tms_utime();
+        int tms_utime();
 
         @CField
-        void set_tms_utime(long value);
+        void set_tms_utime(int value);
 
         @CField
-        long tms_stime();
+        int tms_stime();
 
         @CField
-        void set_tms_stime(long value);
+        void set_tms_stime(int value);
 
         @CField
-        long tms_cutime();
+        int tms_cutime();
 
         @CField
-        void set_tms_cutime(long value);
+        void set_tms_cutime(int value);
 
         @CField
-        long tms_cstime();
+        int tms_cstime();
 
         @CField
-        void set_tms_cstime(long value);
+        void set_tms_cstime(int value);
     }
 
     @CFunction
-    public static native long times(tms tp);
+    public static native int times(tms tp);
 }
