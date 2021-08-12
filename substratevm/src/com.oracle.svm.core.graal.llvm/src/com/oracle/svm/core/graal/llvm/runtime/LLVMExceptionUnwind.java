@@ -54,6 +54,9 @@ import com.oracle.svm.hosted.code.CEntryPointCallStubSupport;
 import jdk.vm.ci.meta.MetaAccessProvider;
 import jdk.vm.ci.meta.ResolvedJavaMethod;
 
+import org.graalvm.nativeimage.c.struct.AllowWideningCast;
+import org.graalvm.nativeimage.c.struct.AllowNarrowingCast;
+
 @CContext(LLVMDirectives.class)
 public class LLVMExceptionUnwind {
 
@@ -201,9 +204,11 @@ public class LLVMExceptionUnwind {
     @CStruct(addStructKeyword = true)
     private interface _Unwind_Exception extends PointerBase {
         @CField
+	@AllowNarrowingCast
         PointerBase exception_class();
 
         @CField
+	@AllowWideningCast
         void set_exception_class(PointerBase value);
 
         @CField
